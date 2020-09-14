@@ -90,7 +90,7 @@ function gErrorHandler(cb) {
   
     // if message has an error message send 401(Unauthorized client error) status code
     if (message) {
-      res.status(401).send(message)
+      res.status(403).send(message)
 
     // if no error was found continue to next middleware function
     } else {
@@ -162,7 +162,8 @@ router.put(`/courses/:id`, userAuthentication, gErrorHandler(async (req, res, ne
         }
     }
     if (i == allAttributes.length) {
-        next(new Error("Attributes weren't named correctly"))
+        res.status(400).send("Attributes weren't named correctly")
+        // next(new Error("Attributes weren't named correctly"))
     }
 }))
   
