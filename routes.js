@@ -140,8 +140,8 @@ router.get(`/courses`, gErrorHandler(async (req, res) => {
   
 // post route -> 1) authenticate user exists  2) create entry on db  3) redirect to main--???  4) send back 201(Created) status code
  router.post(`/courses`, userAuthentication, gErrorHandler(async (req, res) => {
-    await sq.models.Course.create(req.body);
-    res.set('Location', '/')
+    var newValue = await sq.models.Course.create(req.body);
+    res.set('Location', `/courses/${newValue.id}`)
     res.status(201).end()
 }))
   
